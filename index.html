@@ -80,18 +80,12 @@
       /* 强调色/用户气泡色，现在也是动态的 */
       --accent-color: hsl(var(--primary-hue), calc(var(--primary-saturation) * 1.2), calc(var(--primary-lightness) - 20%));
 
-      /* 哼，看好了，这些就是被我重新接上线的“电灯” */
-
-      /* 文字颜色：根据主题亮度自动变深或变浅 */
-      --text-color: hsl(var(--primary-hue), 15%, calc(100% - var(--primary-lightness) / 1.1));
-      --text-color-light: hsl(var(--primary-hue), 10%, calc(100% - var(--primary-lightness) / 1.3));
-
+      --text-color: #c7bda4;
+      --text-color-light: #cfb478;
       /* 表面背景：半透明，亮度比主色高一点 */
-      --surface-bg: hsla(var(--primary-hue), calc(var(--primary-saturation) / 2), calc(var(--primary-lightness) + 15%), 0.4);
-
+      --surface-bg: #252525;
       /* 卡片/AI气泡背景：比表面背景更亮一点 */
-      --card-bg: hsla(var(--primary-hue), calc(var(--primary-saturation) / 1.5), calc(var(--primary-lightness) + 18%), 0.75);
-
+      --card-bg: #414141;
       /* 边框颜色 */
       --border-color: hsla(var(--primary-hue), calc(var(--primary-saturation) / 2), calc(var(--primary-lightness)), 0.3);
 
@@ -129,7 +123,6 @@
       justify-content: center;
       height: 100vh;
       margin: 0;
-      /* 哼，看好了，就是这句！现在字体听从我的新变量指揮了！ */
       font-family: var(--custom-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif);
       background-image: var(--user-bg-image);
       background-size: cover;
@@ -162,8 +155,7 @@
       flex-grow: 1;
       display: none;
       flex-direction: column;
-      background-color: #f9f9f9;
-      /* 哼，所有屏幕默认都给我变白 */
+      background-color: #000000;
       /* 让背景透出来 */
       overflow: hidden;
       color: var(--text-color);
@@ -825,7 +817,7 @@
 
     .choice-modal-button {
       color: var(--text-color);
-      background: rgba(255, 255, 255, 0.5);
+      background: var(--card-bg);
     }
 
     .choice-modal-button:hover {
@@ -2095,7 +2087,7 @@
     #chat-input-wrapper-meeting {
       display: flex;
       align-items: center;
-      background: linear-gradient(0deg, rgba(25, 28, 38, 0.9) 0%, rgba(45, 50, 68, 0.75) 100%);
+      background: --feed-bg-image;
       backdrop-filter: blur(10px) saturate(1.2);
       -webkit-backdrop-filter: blur(10px) saturate(1.2);
       border: 1px solid rgba(255, 255, 255, 0.25);
@@ -2109,7 +2101,7 @@
     }
 
     #meeting-message-input::placeholder {
-      color: rgba(240, 242, 245, 0.5);
+      color: rgba(240, 242, 245, 0.251);
       font-style: italic;
     }
 
@@ -4834,6 +4826,12 @@
 
     /* ▲▲▲ End of Protocol ▲▲▲ */
   </style>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
 </head>
 
 <body>
@@ -5404,40 +5402,6 @@
         <div style="width: 50px;"></div>
       </div>
       <div class="content">
-        <div class="settings-group"
-          style="border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 20px;">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h2 style="margin: 0;">UI缩放</h2>
-            <button id="reset-ui-scale-button" class="form-button secondary"
-              style="width: auto; margin: 0; padding: 4px 12px; font-size: 0.8rem;">恢复默认</button>
-          </div>
-          <p style="font-size: 0.9rem; color: var(--text-color-light);">拖动滑块来调整手机模拟器的整体大小。</p>
-          <div class="input-group" style="padding-top: 10px;">
-            <label for="ui-scale-slider" style="display: block; margin-bottom: 5px;">缩放比例</label>
-            <input type="range" id="ui-scale-slider" min="0.7" max="1.2" value="1" step="0.05" style="width: 100%;">
-          </div>
-        </div>
-        <div class="settings-group"
-          style="border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 20px;">
-          <h2>全局主题色</h2>
-          <p style="font-size: 0.9rem; color: var(--text-color-light);">拖动滑块来改变整个App的主色调。</p>
-          <div class="input-group" style="padding-top: 10px;">
-            <label for="theme-hue-slider" style="display: block; margin-bottom: 5px;">色相 (Hue)</label>
-            <input type="range" id="theme-hue-slider" min="0" max="360" value="35" style="width: 100%;">
-          </div>
-          <div class="input-group">
-            <label for="theme-lightness-slider" style="display: block; margin-bottom: 5px;">明度 (Lightness)</label>
-            <input type="range" id="theme-lightness-slider" min="15" max="95" value="80" style="width: 100%;">
-          </div>
-        </div>
-        <div class="settings-group"
-          style="border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 20px;">
-          <h2 style="margin-top: 0;">时钟样式</h2>
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <input type="checkbox" id="clock-color-toggle" style="width: auto; height: 18px; flex-shrink: 0;">
-            <label for="clock-color-toggle" style="width: auto; font-size: 0.9rem;">强制使用纯白色时钟 (推荐在深色壁纸下使用)</label>
-          </div>
-        </div>
         <div class="settings-group">
           <h2>上传新壁纸</h2>
           <p style="font-size: 0.9rem; color: var(--text-color-light);">选择一张图片作为你的手机壁纸。为了效果最好，请使用竖屏图片。</p>
