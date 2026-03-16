@@ -1,0 +1,3 @@
+- [x] `#app-pages-container` 的 `opacity` 属性已修改为 1 或移除
+- [x] 主页应用图标区域正常显示
+- [x] 底部dock栏三个图标正常显示
