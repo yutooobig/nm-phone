@@ -3,11 +3,29 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
 
   <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;">
 
-  <title>Noir搓的小手机</title>
+  <!-- iOS Web App配置 -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="小手机">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- iOS图标 -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="/apple-touch-icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+
+  <!-- iOS启动画面 -->
+  <link rel="apple-touch-startup-image" href="/apple-launch-screen.png">
+
+  <title>小手机</title>
   <style>
     .message p,
     .diary-content {
@@ -134,6 +152,8 @@
       background-image: var(--user-bg-image);
       background-size: cover;
       background-position: center;
+      /* 安全区域适配 */
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     }
 
     /* 让字体预览区也听话 */
@@ -156,6 +176,9 @@
       /* 是不是清爽多了？ */
       position: relative;
       /* <-- 就是这句，告诉它“你是个家长了，给我看好家里的东西！” */
+      /* 安全区域适配 */
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
     }
 
     .screen {
